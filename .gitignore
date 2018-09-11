@@ -1,0 +1,7 @@
+auth.py
+config.py
+pi/
+pics/
+*.pyc
+tweets.txt
+scores.txt
