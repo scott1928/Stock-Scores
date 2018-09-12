@@ -1,6 +1,6 @@
 qual_words = ["feel","i am","im","makes me","going to","buy","sell"]
-positive_words = {"buy": 1,"good": 1,"undervalued":2,"buying":1,"good value":2,"buying now":2,"epic":1,"gains":1,"buy this now":3,"best":2,"hot":1,"thrilled":2,"happy":1}
-negative_words = {"sell":1,"overvalued":1,"rip-off":2,"terrible":2,"bad":1,"short":1,"put":1,"suicide":3,"drop":1,"worst":2,"mistake":1,"cooler":1,"caution":1,"afraid":1}
+positive_words = {"buy": 1,"good": 1,"undervalued":3,"buying":1,"good value":2,"buying now":2,"epic":1,"gains":1,"buy this now":3,"best":2,"hot":1,"thrilled":2,"happy":1,"up":1}
+negative_words = {"sell":1,"overvalued":2,"rip-off":2,"terrible":2,"bad":1,"short":1,"put":1,"suicide":3,"drop":1,"worst":2,"mistake":1,"cooler":1,"caution":1,"afraid":1,"down":1}
 neg_inflection = ["dont","negative","not"]
 pos_inflection = ["do","positive"]
 

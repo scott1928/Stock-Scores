@@ -18,6 +18,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
+
 def tweet_downloader():
     search_query = "TLRY"
     max_tweets = 10000
@@ -59,25 +60,23 @@ def tweet_downloader():
 #tweet_downloader()
 
 def main_function():
-    search = ["TLRY","PANW"]
+    search = ["TLRY","PANW","APH","ATRS","TNDM"]
     numberOfTweets = 100
     scores_list = []
     tweet_count = 0
     for phrase in search:
-        phrase = phrase + " -filter:retweets"
-        for tweet in tweepy.Cursor(api.search,q=phrase,result_type="recent",tweet_mode='extended',lang="en").items(numberOfTweets):
+        filterd = phrase + " -filter:retweets"
+        for tweet in tweepy.Cursor(api.search,q=filterd,result_type="recent",tweet_mode='extended',lang="en").items(numberOfTweets):
             try:
-                tweet_count = tweet_count + 1
-                print(tweet_count)
-#                print('Tweet by: @'+tweet.user.screen_name)
+                tweet_count = tweet_count + 1              
                 text = tweet.full_text
-#                print(text)
                 qualified = analysis.qualify(text)
-#                print(qualified)
                 if qualified == True:
                     split = analysis.tweet_splitter(text)
                     score = analysis.total_score(split)
                     scores_list.append(score)
+                    print("Checked Tweet #" + str(tweet_count))
+                    print('Tweet by: @'+tweet.user.screen_name)
                     print(text)
                     print(score)
             except tweepy.TweepError as e:
@@ -105,7 +104,10 @@ def main_function():
         used.write("\n")
         used.write("Score list len: " + str(len(scores_list)))
         used.write("\n")
-        scores_list = []
+        message = phrase + ":" + str(scores_list) + " Average: " + str(average) + " length: " + str(len(scores_list))
+        api.update_status(status=message)
+        print("Tweeted: {}".format(message))
+        scores_list = []  
     sys.stdout.close()
 
 main_function()
