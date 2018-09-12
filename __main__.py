@@ -6,7 +6,6 @@ import auth
 import time
 import datetime
 import analysis
-import jsonpickle
 used = open("scores.txt","r")
 
 consumer_key        = auth.consumer_key
@@ -60,43 +59,52 @@ def tweet_downloader():
 #tweet_downloader()
 
 def main_function():
-    search = ["TLRY"]
-    numberOfTweets = 2000
+    search = ["TLRY","PANW"]
+    numberOfTweets = 100
     scores_list = []
     tweet_count = 0
     for phrase in search:
-        for tweet in tweepy.Cursor(api.search,'q=TLRY -filter:retweets',tweet_mode='extended').items(numberOfTweets):
+        for tweet in tweepy.Cursor(api.search,q=phrase,result_type="recent",tweet_mode='extended',lang="en").items(numberOfTweets):
             try:
                 tweet_count = tweet_count + 1
                 print(tweet_count)
-                print('Tweet by: @'+tweet.user.screen_name)
+#                print('Tweet by: @'+tweet.user.screen_name)
                 text = tweet.full_text
-                print(text)
+#                print(text)
                 qualified = analysis.qualify(text)
-                print(qualified)
+#                print(qualified)
                 if qualified == True:
                     split = analysis.tweet_splitter(text)
-                    scores_list.append(analysis.total_score(split))
+                    score = analysis.total_score(split)
+                    scores_list.append(score)
+                    print(text)
+                    print(score)
             except tweepy.TweepError as e:
             	print(e.reason)
             except StopIteration:
             	break
-        else:
-        	break
-        print("scores list: ",scores_list)
+#        else:
+#        	break
+        print("scores list for : ",phrase, scores_list)
         used = open("scores.txt","a")
         now = datetime.datetime.now()
         used.write(str(now.strftime("%Y-%m-%d %H:%M")))
         used.write(" ")
+        used.write("Tracking: "+ phrase)
         used.write(str(scores_list))
         used.write("\n")
         total_score = 0
         for num in scores_list:
             total_score = total_score + num
-        average = total_score / len(scores_list)
-        used.write("average: ",average)
-        used.write("Score list len: ",len(scores_list))
+        if len(scores_list) != 0:
+            average = total_score / len(scores_list)
+        else:
+            average = 0
+        used.write("average: " + str(average) + " ")
         used.write("\n")
+        used.write("Score list len: " + str(len(scores_list)))
+        used.write("\n")
+        scores_list = []
     sys.stdout.close()
 
 main_function()
