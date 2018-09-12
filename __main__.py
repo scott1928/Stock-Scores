@@ -64,6 +64,7 @@ def main_function():
     scores_list = []
     tweet_count = 0
     for phrase in search:
+        phrase = phrase + " -filter:retweets"
         for tweet in tweepy.Cursor(api.search,q=phrase,result_type="recent",tweet_mode='extended',lang="en").items(numberOfTweets):
             try:
                 tweet_count = tweet_count + 1
