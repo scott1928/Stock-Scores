@@ -19,8 +19,8 @@ api = tweepy.API(auth)
 
 
 def main_function():
-    search = ["TLRY","PANW","APH","ATRS","TNDM","$VOD"]
-    numberOfTweets = 100
+    search = ["TLRY","PANW","APH","ATRS","TNDM","$VOD","$MU"]
+    numberOfTweets = 200
     scores_list = []
     tweet_count = 0
     for phrase in search:
