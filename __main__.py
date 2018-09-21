@@ -19,7 +19,7 @@ api = tweepy.API(auth)
 
 
 def main_function():
-    search = ["TLRY","PANW","APH","ATRS","TNDM","$VOD","$MU"]
+    search = ["TLRY","PANW","APH","ATRS","TNDM","$VOD","$MU","$SQ","$OGI"]
     numberOfTweets = 200
     scores_list = []
     tweet_count = 0
